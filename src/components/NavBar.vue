@@ -40,7 +40,7 @@
 
           </v-btn>
 
-          <v-badge color="error" overlap>
+          <v-badge v-if="cart" color="error" overlap>
 
             <template v-slot:badge>{{ cart.items.length }}</template>
 
@@ -140,6 +140,9 @@ export default {
 
   },
 
+updated() {
+ this.bind()
+},
   methods: {
 
     async logOut() {

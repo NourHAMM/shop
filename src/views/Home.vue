@@ -41,6 +41,7 @@ export default {
   data() {
     return {
       products: [],
+      
     }
   },
   computed: {
@@ -54,7 +55,22 @@ export default {
   methods: {
     async bind() {
       await this.$bind('products', db.collection('products').where('showCatalog', '==', true))
+    
     },
+    async addToCart(product){
+      await db
+      .collection("cart")
+      .doc(this.user.uid)
+      .update({
+        items: this.$firebase.firestore.FieldValue.arrayUnion({
+          id: product.id,
+          name: product.name,
+          quantity: 1,
+          price: product.price,
+      
+        })
+      })
+    }
   },
 }
 </script>
